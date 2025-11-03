@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="StyleSheet" href="Diksha.css">
+</head>
+<body>
+    <main>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Furever Home</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('pets')">Available Pets</a></li>
+                <li><a href="#" onclick="showPage('adopt')">Adopt</a></li>
+                <li><a href="#" onclick="showPage('surrender')">Surrender Pet</a></li>
+                <li><a href="#" onclick="showPage('donate')">Donate</a></li>
+                <li><a href="#" onclick="showPage('shelters')">Shelters</a></li>
+                <li><a href="#" onclick="showPage('medical')">Medical</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>Welcome to Furever Home! 🐶🐱</h1>
+                <p>Every pet deserves a loving home. Find your perfect furry companion today!</p>
+                <button class="btn" onclick="showPage('pets')">Browse Available Pets</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h2 id="totalPets">10</h2>
+                    <p>Pets Available</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="totalAdoptions">6</h2>
+                    <p>Happy Adoptions</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="totalShelters">10</h2>
+                    <p>Partner Shelters</p>
+                </div>
+                <div class="stat-card">
+                    <h2 id="totalDonations">₹55,500</h2>
+                    <p>Donations Received</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AVAILABLE PETS PAGE -->
+        <div id="pets" class="page">
+            <div class="hero">
+                <h1>Meet Our Adorable Friends 🐾</h1>
+                <p>These lovable pets are waiting for their forever homes!</p>
+            </div>
+            
+            <div class="search-filter-container">
+                <div class="search-box">
+                    <input type="text" id="searchBreed" placeholder="🔍 Search by breed..." onkeyup="filterPets()">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-species="All" onclick="setSpeciesFilter(this)">All</button>
+                    <button class="filter-btn" data-species="Dog" onclick="setSpeciesFilter(this)">🐕 Dogs</button>
+                    <button class="filter-btn" data-species="Cat" onclick="setSpeciesFilter(this)">🐈 Cats</button>
+                    <button class="filter-btn" data-species="Other" onclick="setSpeciesFilter(this)">🐾 Others</button>
+                </div>
+            </div>
+            
+            <div class="card-grid" id="petsGrid"></div>
+        </div>
+
+        <!-- ADOPTION FORM PAGE -->
+        <div id="adopt" class="page">
+            <div class="hero">
+                <h1>Start Your Adoption Journey 💕</h1>
+                <p>Fill out the form below to adopt your new best friend!</p>
+            </div>
+            <div class="form-container">
+                <form id="adoptionForm" action="submit_adoption.php" method="POST">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea name="address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Pet</label>
+                        <select name="pet" id="petSelect" required></select>
+                    </div>
+                    <button type="submit" class="btn">Submit Adoption Request</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- DONATION PAGE -->
+        <div id="donate" class="page">
+            <div class="hero">
+                <h1>Support Our Mission 🎁</h1>
+                <p>Your donation helps us care for these precious animals!</p>
+            </div>
+            <div class="form-container">
+                <form id="donationForm">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="donorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Donation Amount (₹)</label>
+                        <input type="number" name="amount" min="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Shelter to Support</label>
+                        <select name="shelter" id="shelterSelect" required></select>
+                    </div>
+                    <button type="submit" class="btn">Make a Donation</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SURRENDER PET PAGE -->
+        <div id="surrender" class="page">
+            <div class="hero">
+                <h1>Surrender a Pet to Shelter 🏠</h1>
+                <p>We understand sometimes circumstances change. Help us find your pet a loving home.</p>
+            </div>
+            <div class="form-container">
+                <form id="surrenderForm" action="database.php" method="POST">
+                    <div class="form-group" >
+                        <label>Your Name</label>
+                        <input type="text" name="ownerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="tel" name="ownerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="ownerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pet's Name</label>
+                        <input type="text" name="petName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Species</label>
+                        <select name="species" required>
+                            <option value="">Choose species...</option>
+                            <option value="Dog">Dog</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Rabbit">Rabbit</option>
+                            <option value="Bird">Bird</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Breed</label>
+                        <input type="text" name="breed" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age (years)</label>
+                        <input type="number" name="age" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" required>
+                            <option value="">Choose gender...</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Health Status</label>
+                        <input type="text" name="health" placeholder="e.g., Healthy, Vaccinated, etc." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Shelter</label>
+                        <select name="preferredShelter" id="shelterSelectSurrender" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason for Surrender</label>
+                        <textarea name="reason" rows="4" placeholder="Please tell us why you need to surrender your pet..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Medical History (Optional)</label>
+                        <textarea name="medicalHistory" rows="3" placeholder="Any vaccinations, treatments, or medical conditions..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Surrender Request</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SHELTERS PAGE -->
+        <div id="shelters" class="page">
+            <div class="hero">
+                <h1>Our Partner Shelters 🏠</h1>
+                <p>Amazing shelters working tirelessly for animal welfare</p>
+            </div>
+            <div class="card-grid" id="sheltersGrid"></div>
+        </div>
+
+        <!-- MEDICAL RECORDS PAGE -->
+        <div id="medical" class="page">
+            <div class="hero">
+                <h1>Medical Care Records 🏥</h1>
+                <p>We ensure all our pets receive the best medical care</p>
+            </div>
+            <div class="card-grid" id="medicalGrid"></div>
+        </div>
+    </div>
+</main>
+    <div class="footer">
+        <p>🐾 Furever Home- Making tails wag since 2024 🐾</p>
+        <p>Made with ❤️ by Sonam, Diksha & Sachin for all the furry friends</p>
+    </div>
+    <script src="Sachin.js"></script>
+</body>
+</html>
